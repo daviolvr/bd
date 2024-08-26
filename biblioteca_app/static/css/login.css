@@ -1,83 +1,30 @@
-* {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-}
-
-body {
+.login-form {
     display: flex;
-    height: 100vh;
+    flex-direction: column;
     align-items: center;
-    justify-content: center;
-    background: rgb(234,162,250);
-    background: linear-gradient(90deg, #c987d4, #f19ec2);
+    margin-top: 50px;
 }
 
-.insert {
-    display: flex;
-    flex-direction: column; 
-    align-items: center;
-    background-color: rgb(255, 255, 255);
-    width: 425px;
-    height: 375px;
-    border: 1px solid white;
-    border-radius: 25px;
-    padding: 40px 20px 20px 20px;
-    box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
-}
-
-.login {
-    text-align: center;
-    margin-bottom: 20px;
-    font-family: system-ui, -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, Oxygen, Ubuntu, Cantarell, 'Open Sans', 'Helvetica Neue', sans-serif;
-}
-
-label {
-    font-size: 14px;
-    font-family: Cambria, Cochin, Georgia, Times, 'Times New Roman', serif;
-    text-align: left;
-    width: 100%;
+.login-form label {
     margin-bottom: 5px;
-    margin-left: 40px;
 }
 
-input {
-    background-color: rgb(247, 247, 247);
-    padding: 7px;
-    height: 35px;
-    width: 350px;
-    border: 1px solid rgb(109, 109, 109);
-    border-radius: 15px;
-    margin-bottom: 20px; 
+.login-form input[type="text"],
+.login-form input[type="password"] {
+    margin-bottom: 15px;
+    padding: 10px;
+    width: 200px;
 }
 
-.enter {
-    font-size: 20px;
-    font-weight: bold;
-    color: rgb(238, 236, 236);
-    background-color: rebeccapurple;
-    height: 40px;
-    width: 350px;
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 25px;
-    margin-top: 10px;
+.checkbox-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 15px;
 }
 
-.create {
-    background-color: transparent;
-    font-weight: bold;
-    border: 1px solid rgba(0, 0, 0, 0);
-    border-radius: 25px;
-    margin-top: 20px;
-    color: rebeccapurple;
+.checkbox-container input[type="checkbox"] {
+    margin-right: 10px;
+    width: 20px;
+    height: 20px;
 }
 
-.enter:hover {
-    background-color: rgb(70, 48, 94);
-    cursor: pointer;
-}
-
-.create:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}

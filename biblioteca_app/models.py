@@ -10,6 +10,7 @@ class Biblioteca(models.Model):
     
 class Admin(models.Model):
     id_admin = models.AutoField(primary_key=True)
+    cpf = models.CharField(max_length=11, unique=True, null=False)
     nome = models.CharField(max_length=120, default='')
     cnpj = models.ForeignKey(Biblioteca, on_delete=models.CASCADE)
     senha = models.CharField(max_length=20, null=False, default='') 
