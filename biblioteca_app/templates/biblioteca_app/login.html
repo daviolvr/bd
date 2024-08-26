@@ -1,0 +1,24 @@
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
+    <title>Login</title>
+</head>
+<body>
+    <div class="container">
+        <div class="insert">
+            <div class="login">
+                <h1>Login</h1>
+            </div>
+            <label class="cpf" for="cpf">CPF</label>
+            <input type="text" name="cpf" id="cpf" placeholder="Ex: 000.000.000-00" required>
+            <label class="senha" for="password">Senha</label>
+            <input type="password" name="password" id="password" placeholder="Insira sua senha" required >
+            <button type="submit" class="enter">Login</button>
+            <button class="create">Criar Usuário</button>
+        </div>
+    </div>
+</body>
+</html>
