@@ -1,29 +1,42 @@
 from django.shortcuts import render, redirect
-from django.contrib import messages
+from django.http import HttpResponse
 from .models import Cliente, Admin
 
-def login_view(request):
-    if request.method == 'POST':
+def cadastro(request):
+    if request.method == 'GET':
+        return render(request, 'biblioteca_app/cadastro.html')
+    else:
+        nome = request.POST.get('nome')
+        cpf = request.POST.get('cpf')
+        senha = request.POST.get('senha')
+        
+        try:
+            Cliente.objects.get(nome=nome, cpf=cpf, senha=senha)
+            return HttpResponse('Cliente já cadastrado.')
+        except Cliente.DoesNotExist:
+            Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
+            return HttpResponse('Cliente cadastrado com sucesso.')
+
+def login(request):
+    if request.method =='GET':
+        return render(request, 'biblioteca_app/login.html')
+    else:
         cpf = request.POST.get('cpf')
         senha = request.POST.get('senha')
         is_admin = request.POST.get('is_admin') == 'on'
-
+        
         if is_admin:
             try:
-                admin = Admin.objects.get(cpf=cpf, senha=senha)
-                if admin:
-                    return redirect('/admin/')
+                Admin.objects.get(cpf=cpf, senha=senha)
+                return redirect('/admin/')
             except Admin.DoesNotExist:
-                messages.error(request, 'Admin não encontrado ou senha incorreta.')
+                return HttpResponse('CPF ou senha inválidos.')
         else:
             try:
-                cliente = Cliente.objects.get(cpf=cpf, senha=senha)
-                if cliente:
-                    return redirect('home')
+                Cliente.objects.get(cpf=cpf, senha=senha)
+                return redirect('home')
             except Cliente.DoesNotExist:
-                messages.error(request, 'Cliente não encontrado ou senha incorreta.')
-    
-    return render(request, 'biblioteca_app/login.html')
-
-def home_view(request):
+                return HttpResponse('CPF ou senha inválidos.')
+        
+def home(request):
     return render(request, 'biblioteca_app/home.html')

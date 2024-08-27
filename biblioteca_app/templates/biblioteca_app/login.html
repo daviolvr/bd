@@ -1,27 +1,21 @@
-{% load static %}
+<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static 'css/login.css' %}">
-    <title>Login</title>
+    <title>Document</title>
 </head>
 <body>
-    <div class="login-form">
-        <form action="{% url 'login' %}" method="post">
-            {% csrf_token %}
-            <label for="cpf">CPF:</label>
-            <input type="text" id="cpf" name="cpf" required>
-            <br>
-            <label for="senha">Senha:</label>
-            <input type="password" id="senha" name="senha" required>
-            <br>
-            <div class="checkbox-container">
-                <input type="checkbox" id="is_admin" name="is_admin">
-                <label for="is_admin">Login como Admin</label>
-            </div>
-            <input type="submit" value="Login">
-        </form>
-    </div>
+    
+    <form action="{% url "login" %}" method="POST">
+        {% csrf_token %}
+        <input type="text" placeholder="CPF" name="cpf">
+        <br>
+        <input type="text" placeholder="Senha" name="senha">
+        <br>
+        <input type="checkbox" name="is_admin">
+        <input type="submit" value="login">
+    </form>
+
 </body>
 </html>
