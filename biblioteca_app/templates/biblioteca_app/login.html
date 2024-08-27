@@ -1,51 +1,41 @@
+{% load static %}
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/login.css' %}">
     <title>Login</title>
-    <style>
-        .message {
-            color: white;
-            background-color: #f44336; 
-            padding: 10px;
-            margin-bottom: 15px;
-            border-radius: 5px;
-            font-size: 16px;
-            text-align: center;
-            display: none; /* inicialmente escondido */
-            opacity: 1;
-            transition: opacity 1s ease-in-out;
-        }
-    </style>
 </head>
 <body>
-    <!-- formulário pro login-->
     <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
+        <h1>Login</h1>
+        <label for="cpf" class="cpf">CPF</label>
         <input type="text" placeholder="CPF" name="cpf" required>
-        <br>
+
+        <label for="senha" class="senha">Senha</label>
         <input type="password" placeholder="Senha" name="senha" required>
-        <br>
-        <input type="checkbox" name="is_admin">
-        <label for="is_admin">Login como Admin</label>
-        <br>
+
+        <div class="checkbox-container">
+            <input type="checkbox" name="is_admin" id="is_admin">
+            <label for="is_admin">Login como Admin</label>
+        </div>
+
         <input type="submit" value="Login">
-    </form>
-    <br>
-    <form action="{% url 'cadastro' %}">
-        <input type="submit" value="Criar Usuário">
+        
+        <button type="button" class="create-user-button" onclick="window.location.href='{% url 'cadastro' %}'">Criar Usuário</button>
+
+        <!-- mensagem de erro -->
+        {% if messages %}
+            <ul class="messages">
+                {% for message in messages %}
+                    <li class="message{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+                {% endfor %}
+            </ul>
+        {% endif %}
     </form>
 
-    <!-- pra mensagem de erro aparecer-->
-    {% if messages %}
-        <ul class="messages">
-            {% for message in messages %}
-                <li class="message{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
-            {% endfor %}
-        </ul>
-    {% endif %}
-    
-    <!-- javascript pra mensagem de erro-->
+    <!-- javascript pra mensagem de erro -->
     <script>
         const messages = document.querySelectorAll('.message');
         if (messages.length > 0) {
@@ -62,4 +52,4 @@
         }
     </script>
 </body>
-</html
+</html>
