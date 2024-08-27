@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.contrib import messages
 from .models import Cliente, Admin
 
 def cadastro(request):
@@ -11,14 +12,16 @@ def cadastro(request):
         senha = request.POST.get('senha')
         
         try:
-            Cliente.objects.get(nome=nome, cpf=cpf, senha=senha)
-            return HttpResponse('Cliente já cadastrado.')
+            Cliente.objects.get(cpf=cpf)
+            messages.error(request, 'Cliente já cadastrado.')
         except Cliente.DoesNotExist:
             Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
-            return HttpResponse('Cliente cadastrado com sucesso.')
+            messages.success(request, 'Cliente cadastrado com sucesso.')
+
+        return redirect('cadastro') 
 
 def login(request):
-    if request.method =='GET':
+    if request.method == 'GET':
         return render(request, 'biblioteca_app/login.html')
     else:
         cpf = request.POST.get('cpf')
@@ -30,13 +33,15 @@ def login(request):
                 Admin.objects.get(cpf=cpf, senha=senha)
                 return redirect('/admin/')
             except Admin.DoesNotExist:
-                return HttpResponse('CPF ou senha inválidos.')
+                messages.error(request, 'CPF ou senha inválidos.')
+                return redirect('login')
         else:
             try:
                 Cliente.objects.get(cpf=cpf, senha=senha)
                 return redirect('home')
             except Cliente.DoesNotExist:
-                return HttpResponse('CPF ou senha inválidos.')
+                messages.error(request, 'CPF ou senha inválidos.')
+                return redirect('login')
         
 def home(request):
     return render(request, 'biblioteca_app/home.html')

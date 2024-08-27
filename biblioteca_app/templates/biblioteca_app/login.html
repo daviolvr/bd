@@ -1,21 +1,65 @@
-<!DOCTYPE html>
 <html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Login</title>
+    <style>
+        .message {
+            color: white;
+            background-color: #f44336; 
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            display: none; /* inicialmente escondido */
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+    </style>
 </head>
 <body>
-    
-    <form action="{% url "login" %}" method="POST">
+    <!-- formulário pro login-->
+    <form action="{% url 'login' %}" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="CPF" name="cpf">
+        <input type="text" placeholder="CPF" name="cpf" required>
         <br>
-        <input type="text" placeholder="Senha" name="senha">
+        <input type="password" placeholder="Senha" name="senha" required>
         <br>
         <input type="checkbox" name="is_admin">
-        <input type="submit" value="login">
+        <label for="is_admin">Login como Admin</label>
+        <br>
+        <input type="submit" value="Login">
+    </form>
+    <br>
+    <form action="{% url 'cadastro' %}">
+        <input type="submit" value="Criar Usuário">
     </form>
 
+    <!-- pra mensagem de erro aparecer-->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <!-- javascript pra mensagem de erro-->
+    <script>
+        const messages = document.querySelectorAll('.message');
+        if (messages.length > 0) {
+            messages.forEach(message => {
+                message.style.display = 'block';
+            });
+
+            // pra esconder a mensagem após 3s
+            setTimeout(() => {
+                messages.forEach(message => {
+                    message.style.display = 'none';
+                });
+            }, 3000);
+        }
+    </script>
 </body>
-</html>
+</html

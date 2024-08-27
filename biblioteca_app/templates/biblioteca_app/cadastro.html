@@ -3,20 +3,73 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Cadastro</title>
+    <style>
+        .message {
+            padding: 10px;
+            margin-bottom: 15px;
+            border-radius: 5px;
+            font-size: 16px;
+            text-align: center;
+            display: none;
+            opacity: 1;
+            transition: opacity 1s ease-in-out;
+        }
+        .message.success {
+            color: white;
+            background-color: #4CAF50;
+        }
+        .message.error {
+            color: white;
+            background-color: #f44336; 
+        }
+    </style>
 </head>
 <body>
-    
-    <form action="{% url "cadastro" %}" method="POST">
+    <!-- formulário pro cadastro -->
+    <form action="{% url 'cadastro' %}" method="POST">
         {% csrf_token %}
-        <input type="text" placeholder="CPF" name="cpf">
+        <input type="text" placeholder="CPF" name="cpf" required>
         <br>
-        <input type="text" placeholder="Nome" name="nome">
+        <input type="text" placeholder="Nome" name="nome" required>
         <br>
-        <input type="text" placeholder="Senha" name="senha">
+        <input type="password" placeholder="Senha" name="senha" required>
         <br>
-        <input type="submit" value="cadastrar">
+        <input type="submit" value="Cadastrar">
+    </form>
+    
+    <br>
+
+    <form action="{% url 'login' %}">
+        <input type="submit" value="Fazer Login">
     </form>
 
+    <!-- pra mensagem de erro aparecer-->
+    {% if messages %}
+        <ul class="messages">
+            {% for message in messages %}
+                <li class="message{% if message.tags %} {{ message.tags }}{% endif %}">{{ message }}</li>
+            {% endfor %}
+        </ul>
+    {% endif %}
+    
+    <!-- javascript pra mensagem de erro-->
+    <script>
+        const messages = document.querySelectorAll('.message');
+        if (messages.length > 0) {
+            messages.forEach(message => {
+                message.style.display = 'block';
+            });
+
+            setTimeout(() => {
+                messages.forEach(message => {
+                    message.style.opacity = '0';
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                    }, 1000);
+                });
+            }, 3000);
+        }
+    </script>
 </body>
 </html>
