@@ -46,7 +46,10 @@
             // pra esconder a mensagem após 3s
             setTimeout(() => {
                 messages.forEach(message => {
-                    message.style.display = 'none';
+                    message.style.opacity = '0';
+                    setTimeout(() => {
+                        message.style.display = 'none';
+                    }, 1000);
                 });
             }, 3000);
         }

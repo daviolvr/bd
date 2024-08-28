@@ -15,8 +15,11 @@ def cadastro(request):
             Cliente.objects.get(cpf=cpf)
             messages.error(request, 'Cliente já cadastrado.')
         except Cliente.DoesNotExist:
-            Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
-            messages.success(request, 'Cliente cadastrado com sucesso.')
+            if len(cpf) == 11: 
+                Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
+                messages.success(request, 'Cliente cadastrado com sucesso.')
+            else:
+                messages.error(request, 'CPF deve ter 11 números.')
 
         return redirect('cadastro') 
 

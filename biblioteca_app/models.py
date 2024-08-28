@@ -22,6 +22,8 @@ class Livro(models.Model):
     id_livro = models.AutoField(primary_key=True)
     autor = models.CharField(max_length=120, null=False)
     titulo = models.CharField(max_length=100, null=False)
+    # cad_por = models.ForeignKey(Admin, on_delete=)
+    # 1xN Admin-Livro
 
     def __str__(self):
         return f"{self.titulo}"

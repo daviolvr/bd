@@ -5,8 +5,9 @@ body {
     display: flex;
     justify-content: center;
     align-items: center;
-    background: linear-gradient(135deg, #4caf50, #2e7d32);
+    background: linear-gradient(135deg, #321d61, #2e7d32);
     font-family: Arial, sans-serif;
+    background-size: cover;
 }
 
 form {
@@ -54,7 +55,7 @@ input[type="checkbox"] {
 }
 
 input[type="submit"] {
-    background-color: #4caf50;
+    background-color: #321d61;
     color: white;
     border: none;
     padding: 10px;
@@ -66,7 +67,7 @@ input[type="submit"] {
 
 .create-user-button {
     background-color: transparent;
-    color: #4caf50;
+    color: #321d61;
     border: none;
     margin-bottom: 15px;
 }
