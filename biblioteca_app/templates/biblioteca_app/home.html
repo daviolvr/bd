@@ -1,1 +1,33 @@
-<h1>Home</h1>
+{% load static %}
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static "css/home.css" %}">
+    <title>Home</title>
+</head>
+<body>
+    <aside>
+        <div class="header-container">
+            <ul>
+                <li>
+                    <input type="text" placeholder="Buscar Livros" class="txtBusca">
+                    <button type="submit" class="btnBusca"><img src="" alt="Buscar..."></button>
+                </li>
+                <li><a href="{% url "carrinho" %}">Meus Empréstimos</a></li>
+                <li><a href="{% url "login" %}">Sair</a></li>
+            </ul>
+        </div>
+    </aside>
+
+    <main>
+        <div>
+            <ul>
+                {% for livro in livros %}
+                    <li>{{ livro }}</li>
+                {% endfor %}
+            </ul>
+        </div>
+    </main>
+</body>
+</html>

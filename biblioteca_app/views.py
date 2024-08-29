@@ -1,7 +1,7 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
 from django.contrib import messages
-from .models import Cliente, Admin
+from .models import Cliente, Livro, Livro_emprestado
 
 def cadastro(request):
     if request.method == 'GET':
@@ -13,7 +13,7 @@ def cadastro(request):
         
         try:
             Cliente.objects.get(cpf=cpf)
-            messages.error(request, 'Cliente já cadastrado.')
+            messages.error(request, 'CPF já cadastrado.')
         except Cliente.DoesNotExist:
             if len(cpf) == 11: 
                 Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
@@ -29,22 +29,16 @@ def login(request):
     else:
         cpf = request.POST.get('cpf')
         senha = request.POST.get('senha')
-        is_admin = request.POST.get('is_admin') == 'on'
         
-        if is_admin:
-            try:
-                Admin.objects.get(cpf=cpf, senha=senha)
-                return redirect('/admin/')
-            except Admin.DoesNotExist:
-                messages.error(request, 'CPF ou senha inválidos.')
-                return redirect('login')
-        else:
-            try:
-                Cliente.objects.get(cpf=cpf, senha=senha)
-                return redirect('home')
-            except Cliente.DoesNotExist:
-                messages.error(request, 'CPF ou senha inválidos.')
-                return redirect('login')
-        
+        try:
+            Cliente.objects.get(cpf=cpf, senha=senha)
+            return redirect('home')
+        except Cliente.DoesNotExist:
+            messages.error(request, 'CPF ou senha inválidos.')
+            return redirect('login')
+   
 def home(request):
-    return render(request, 'biblioteca_app/home.html')
+    livros = Livro.objects.all()
+    context = {'livros': livros}
+        
+    return render(request, 'biblioteca_app/home.html', context)

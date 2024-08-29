@@ -79,7 +79,7 @@ DATABASES = {
         "ENGINE": "django.db.backends.postgresql",
         "NAME": "bibliotecadb",
         "USER": "postgres",
-        "PASSWORD": "password",
+        "PASSWORD": "bancodedados",
         "HOST": "localhost",
         "PORT": "5432",
     }
