@@ -1,6 +1,8 @@
 from django.shortcuts import render, redirect
 from django.http import HttpResponse
+from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
+from django.contrib.auth import logout as auth_logout
 from .models import Cliente, Livro, Livro_emprestado
 
 def cadastro(request):
@@ -31,14 +33,36 @@ def login(request):
         senha = request.POST.get('senha')
         
         try:
-            Cliente.objects.get(cpf=cpf, senha=senha)
+            cliente = Cliente.objects.get(cpf=cpf, senha=senha)
+            request.session['cliente_id'] = cliente.id_cliente
             return redirect('home')
         except Cliente.DoesNotExist:
             messages.error(request, 'CPF ou senha inválidos.')
             return redirect('login')
-   
+
+def logout(request):
+    auth_logout(request)  # limpa todas as sessões ativas do usuário
+    return redirect('login')
+
 def home(request):
-    livros = Livro.objects.all()
-    context = {'livros': livros}
-        
-    return render(request, 'biblioteca_app/home.html', context)
+    cliente_id = request.session.get('cliente_id')
+    if cliente_id:
+        livros = Livro.objects.all()
+        context = {'livros': livros, 'cliente_id': cliente_id}
+        return render(request, 'biblioteca_app/home.html', context)
+    else:
+        return redirect('login')
+
+def meus_emprestimos(request, pk):
+    cliente_id = request.session.get('cliente_id')
+    if cliente_id == pk:
+        livros_emprestados = Livro_emprestado.objects.filter(id_cliente=cliente_id)
+        context = {'livros_emprestados': livros_emprestados}
+        return render(request, 'biblioteca_app/meus_emprestimos.html', context)
+    else:
+        return redirect('home')
+
+def livro_details(request, pk):
+    livro = get_object_or_404(Livro, pk=pk)
+    return render(request, 'biblioteca_app/livro_details.html', {'livro': livro})
+

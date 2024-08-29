@@ -1,0 +1,16 @@
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/livro_details.css' %}">
+    <title>Detalhes do Livro</title>
+</head>
+<body>
+    <div class="livro-detalhes-container">
+        <h1>{{ livro.titulo }}</h1>
+        <p><strong>Autor:</strong> {{ livro.autor }}</p>
+        <p><strong>Estoque:</strong> {{ livro.estoque }}</p>
+    </div>
+</body>
+</html>

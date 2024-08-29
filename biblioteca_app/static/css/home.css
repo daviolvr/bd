@@ -1,0 +1,99 @@
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(135deg, #6a4caf, #2e7d32);
+    font-family: Arial, sans-serif;
+}
+
+.header-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    z-index: 1000;
+}
+
+.header-list {
+    display: flex;
+    justify-content: space-around;
+    align-items: center;
+    padding: 30px;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+.bib-nome, .txtBusca, .btnBusca,
+.meus-emprestimos, .btnSair, .txtCarrinho
+, .inicio {
+    color: linear-gradient(135deg, #6a4caf, #2e7d32);
+}
+
+.meus-emprestimos, .btnSair,
+.txtCarrinho, .inicio {
+    text-decoration: none;
+}
+
+.meus-emprestimos:hover,
+.btnSair:hover,
+.txtCarrinho:hover,
+.inicio:hover{
+    text-decoration: underline;
+}
+
+.livros-container {
+    margin-top: 80px;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    box-sizing: border-box;
+    width: 100%;
+}
+
+.livro-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 250px;
+    box-sizing: border-box;
+}
+
+.livro-card:hover {
+    transform: translateY(-10px);
+}
+
+.livro-card img {
+    width: 100%;
+    height: auto;
+    border-radius: 10px;
+}
+
+.livro-card h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+    word-wrap: break-word;
+}
+
+.livro-card p {
+    color: #555;
+    font-size: 0.9em;
+    margin: 0;
+    word-wrap: break-word;
+}

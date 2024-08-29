@@ -1,5 +1,5 @@
 {% load static %}
-<html lang="en">
+<html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
@@ -7,27 +7,36 @@
     <title>Home</title>
 </head>
 <body>
-    <aside>
-        <div class="header-container">
-            <ul>
-                <li>
-                    <input type="text" placeholder="Buscar Livros" class="txtBusca">
-                    <button type="submit" class="btnBusca"><img src="" alt="Buscar..."></button>
-                </li>
-                <li><a href="{% url "carrinho" %}">Meus Empréstimos</a></li>
-                <li><a href="{% url "login" %}">Sair</a></li>
-            </ul>
-        </div>
+    <aside class="header-container">
+        <ul class="header-list">
+            <li class="bib-nome">Biblioteca X</li>
+            <li><a href="#" class="inicio">Início</a></li>
+            <li>
+                <input type="text" placeholder="Buscar Livros" class="txtBusca">
+                <button type="submit" class="btnBusca"><img src="" alt="Buscar..."></button>
+            </li>
+            <li>
+                <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
+            </li>
+            <li>
+                <a href="" class="txtCarrinho">Carrinho</a>
+            </li>
+            <li>
+                <a href="{% url "logout" %}"  class="btnSair">Sair</a>
+            </li> 
+        </ul>
     </aside>
 
-    <main>
-        <div>
-            <ul>
-                {% for livro in livros %}
-                    <li>{{ livro }}</li>
-                {% endfor %}
-            </ul>
-        </div>
-    </main>
+    <div class="livros-container">
+        {% for livro in livros %}
+        <a href="{% url 'livro-details' livro.pk %}">
+            <div class="livro-card">
+                    <img src="{{ livro.capa_url }}" alt="Capa do Livro">
+                    <h3>{{ livro.titulo }}</h3>
+                    <p>Autor: {{ livro.autor }}</p>
+            </div>
+        </a>
+        {% endfor %}
+    </div>    
 </body>
 </html>
