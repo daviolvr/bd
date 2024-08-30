@@ -200,3 +200,18 @@ body {
 #img-livro {
     height: 280px;
 }
+
+.btnDevolver {
+    background-color: #6a4caf;
+    border: 1px solid #6a4caf;
+    border-radius: 15px;
+    color: #ffffff;
+    margin-top: 5px;
+    padding: 10px;
+}
+
+.btnDevolver:hover {
+    color: #ffffff;
+    background-color: #4e3980;
+    cursor: pointer;
+}

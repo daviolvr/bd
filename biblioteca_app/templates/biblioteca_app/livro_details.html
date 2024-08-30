@@ -19,7 +19,7 @@
             </li>
             <!-- lembrar de adicionar o botao de meus emprestimos aqui-->
             <li class="img-carrinho">
-                <a href=""><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
+                <a href="{% url "carrinho" %}"><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
             </li>
             <li>
                 <a href="{% url 'logout' %}" class="btnSair">Sair</a>

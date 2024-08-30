@@ -5,6 +5,21 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/meus_emprestimos.css' %}">
     <title>Meus Empréstimos</title>
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            document.querySelectorAll('.btnDevolver').forEach(button => {
+                button.addEventListener('click', function(event) {
+                    const bookTitle = this.getAttribute('data-title');
+                    if (!confirm(`Deseja devolver o livro '${bookTitle}'?`)) {
+                        event.preventDefault();
+                    } else {
+                        /* Diminuir 1 do estoque do livro */
+                        /* Exibir mensagem de "Devolução realizada" */
+                    }
+                });
+            });
+        });
+    </script>
 </head>
 <body>
     <aside class="header-container">
@@ -18,7 +33,7 @@
                 </form>
             </li>
             <li class="img-carrinho">
-                <a href=""><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
+                <a href="{% url "carrinho" %}"><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
             </li>
             <li>
                 <a href="{% url 'logout' %}" class="btnSair">Sair</a>
@@ -38,6 +53,8 @@
                             <p>Autor: {{ emprestimo.id_livro.autor }}</p>
                             <p>Data do Empréstimo: {{ emprestimo.data_emprestimo }}</p>
                         </div>
+                        <button class="btnDevolver" data-title="{{ emprestimo.id_livro.titulo }}">Devolver</button>
+                        <!-- inserir um botao tipo "Você tem certeza que quer devolver?"-->
                     </div>
                 {% endfor %}
             </div>
