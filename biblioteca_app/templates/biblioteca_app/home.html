@@ -21,7 +21,7 @@
                 <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
             </li>
             <li class="img-carrinho">
-                <a href=""><img src="{% static "images/carrinho-35.png" %}" alt="Carrinho"></a>
+                <a href="{% url "carrinho" %}"><img src="{% static "images/carrinho-35.png" %}" alt="Carrinho"></a>
             </li>            
             <li>
                 <a href="{% url "logout" %}"  class="btnSair">Sair</a>

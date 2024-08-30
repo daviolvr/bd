@@ -1,0 +1,182 @@
+/* estilo geral do corpo */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(135deg, #6a4caf, #2e7d32);
+    font-family: Arial, sans-serif;
+}
+
+/* estilo do container da header */
+.header-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* estilo da lista de itens na header */
+.header-list {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(233, 233, 233);
+    align-items: center;
+    padding: 15px 40px;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* nome da biblioteca */
+.bib-nome {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #6a4caf;
+    text-transform: uppercase;
+}
+
+/* estilo geral dos links na header */
+.inicio, .meus-emprestimos, .txtCarrinho, .btnSair {
+    font-size: 1em;
+    font-weight: bold;
+    color: #6a4caf;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* efeito hover para os links */
+.inicio:hover, .meus-emprestimos:hover, .btnSair:hover {
+    background-color: #6a4caf;
+    color: #ffffff;
+}
+
+/* estilo do carrinho */
+.img-carrinho {
+    padding: 7px;
+    border-radius: 20px;
+    transition: background-color 0.3s, transform 0.3s;
+}
+
+/* efeito hover no ícone do carrinho */
+.img-carrinho:hover {
+    background-color: #6a4caf;
+    border: 1px solid #6a4caf;
+    box-sizing: border-box;
+}
+
+/* estilo da barra de busca */
+.txtBusca {
+    border: 2px solid #6a4caf;
+    padding: 10px 15px;
+    border-radius: 25px 0 0 25px;
+    width: 250px;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* foco na barra de busca */
+.txtBusca:focus {
+    border-color: #6a4caf;
+    outline: none;
+}
+
+/* estilo do botão de busca */
+.btnBusca {
+    background-color: #6a4caf;
+    border: 2px solid #6a4caf;
+    border-left: none;
+    padding: 10px 15px;
+    border-radius: 0 25px 25px 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* imagem dentro do botão de busca */
+.btnBusca img {
+    width: 20px;
+    height: 20px;
+}
+
+/* efeito hover no botão de busca */
+.btnBusca:hover {
+    background-color: #4e3980;
+}
+
+/* container para alinhar o input e o botão de busca */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+.livro-detalhes-container {
+    margin-top: 100px;
+    display: flex;
+    justify-content: center;
+    width: 100%;
+}
+
+.livro-card {
+    background-color: #f9f9f9;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: left;
+    padding: 15px;
+    transition: transform 0.2s;
+    display: flex;
+    flex-direction: column;
+    height: 100%;
+    min-height: 250px;
+    box-sizing: border-box;
+    width: 40%; /* ajustar a largura do card */
+}
+
+.livro-card-content {
+    display: flex;
+    align-items: center;
+    gap: 15px; /* espaçamento entre imagem e conteúdo */
+}
+
+#img-livro {
+    width: 250px; /* ajustar o tamanho da imagem do card */
+    height: auto;
+    border-radius: 10px;
+}
+
+.livro-card-info {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    flex-grow: 1;
+}
+
+.add-carrinho {
+    background-color: #6a4caf;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 25px;
+    cursor: pointer;
+    margin-top: 10px;
+    transition: background-color 0.3s;
+}
+
+.add-carrinho:hover {
+    background-color: #4e3980;
+}

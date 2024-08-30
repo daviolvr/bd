@@ -180,7 +180,7 @@ body {
     word-wrap: break-word;
 }
 
+/* imagem das cards dos livros */
 #img-livro {
-    height: 312px;
-    width: 206px;
+    height: 280px;
 }

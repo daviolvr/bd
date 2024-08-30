@@ -76,3 +76,8 @@ def buscar_livros(request):
 
     return render(request, 'biblioteca_app/home.html', {'livros': livros, 'cliente_id': cliente_id})
 
+def carrinho(request):
+    cliente_id = request.session.get('cliente_id')
+    # if cliente_id == pk:
+
+    return render(request, 'biblioteca_app/carrinho.html')
