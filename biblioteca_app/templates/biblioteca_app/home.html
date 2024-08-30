@@ -12,15 +12,17 @@
             <li class="bib-nome">Biblioteca X</li>
             <li><a href="#" class="inicio">Início</a></li>
             <li>
-                <input type="text" placeholder="Buscar Livros" class="txtBusca">
-                <button type="submit" class="btnBusca"><img src="" alt="Buscar..."></button>
+                <form action="{% url 'home' %}" method="GET" class="search-container">
+                    <input type="text" name="q" placeholder="Buscar Livros" class="txtBusca">
+                    <button type="submit" class="btnBusca"><img src="{% static "images/lupa-30.png" %}" alt="Buscar..."></button>
+                </form>
             </li>
             <li>
                 <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
             </li>
-            <li>
-                <a href="" class="txtCarrinho">Carrinho</a>
-            </li>
+            <li class="img-carrinho">
+                <a href=""><img src="{% static "images/carrinho-35.png" %}" alt="Carrinho"></a>
+            </li>            
             <li>
                 <a href="{% url "logout" %}"  class="btnSair">Sair</a>
             </li> 

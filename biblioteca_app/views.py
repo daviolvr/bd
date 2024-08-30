@@ -1,5 +1,4 @@
 from django.shortcuts import render, redirect
-from django.http import HttpResponse
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
@@ -65,4 +64,15 @@ def meus_emprestimos(request, pk):
 def livro_details(request, pk):
     livro = get_object_or_404(Livro, pk=pk)
     return render(request, 'biblioteca_app/livro_details.html', {'livro': livro})
+
+def buscar_livros(request):
+    query = request.GET.get('q')
+    livros = Livro.objects.all()
+
+    if query:
+        livros = livros.filter(titulo__icontains=query)
+
+    cliente_id = request.session.get('cliente_id')
+
+    return render(request, 'biblioteca_app/home.html', {'livros': livros, 'cliente_id': cliente_id})
 
