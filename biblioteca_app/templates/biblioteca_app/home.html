@@ -33,7 +33,7 @@
         {% for livro in livros %}
         <a href="{% url 'livro-details' livro.pk %}">
             <div class="livro-card">
-                    <img src="{{ livro.capa_url }}" alt="Capa do Livro">
+                    <img src="{{ livro.capa_url.url }}" alt="Capa do Livro" id="img-livro">
                     <h3>{{ livro.titulo }}</h3>
                     <p>Autor: {{ livro.autor }}</p>
             </div>

@@ -32,7 +32,7 @@
             <div class="emprestimos-list">
                 {% for emprestimo in livros_emprestados %}
                     <div class="emprestimo-card">
-                        <img src="{{ emprestimo.id_livro.capa_url }}" alt="Capa do Livro">
+                        <img src="{{ emprestimo.id_livro.capa_url.url }}" alt="Capa do Livro" id="img-livro">
                         <div class="emprestimo-info">
                             <h3>{{ emprestimo.id_livro.titulo }}</h3>
                             <p>Autor: {{ emprestimo.id_livro.autor }}</p>

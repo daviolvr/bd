@@ -179,3 +179,8 @@ body {
     margin: 0;
     word-wrap: break-word;
 }
+
+#img-livro {
+    height: 312px;
+    width: 206px;
+}

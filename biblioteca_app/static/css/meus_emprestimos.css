@@ -124,6 +124,14 @@ body {
     margin-bottom: 0;
 }
 
+/* estilo do título 'Meus Empréstimos' */
+.emprestimos-container h2 {
+    font-size: 2em;
+    color: #6a4caf;
+    margin-top: 0; 
+    margin-bottom: 20px;
+}
+
 /* estilo do container de empréstimos */
 .emprestimos-container {
     width: 80%;
@@ -136,51 +144,59 @@ body {
     box-sizing: border-box;
 }
 
-/* estilo do título 'Meus Empréstimos' */
-.emprestimos-container h2 {
-    font-size: 2em;
-    color: #6a4caf;
-    margin-top: 0; 
-    margin-bottom: 20px;
-}
-
 /* estilo dos cartões de empréstimos */
 .emprestimos-list {
-    display: flex;
-    flex-wrap: wrap;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
 }
 
+/* estilo individual dos cartões de empréstimos */
 .emprestimo-card {
-    background-color: #f5f5f5;
-    padding: 15px;
+    background-color: #f9f9f9;
     border-radius: 10px;
-    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
-    width: calc(33.333% - 20px);
-    box-sizing: border-box;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    overflow: hidden;
+    text-align: center;
+    padding: 15px;
+    transition: transform 0.2s;
     display: flex;
     flex-direction: column;
-    align-items: center;
+    justify-content: space-between;
+    height: 100%;
+    min-height: 250px;
+    box-sizing: border-box;
 }
 
+/* efeito hover nos cartões de empréstimos */
+.emprestimo-card:hover {
+    transform: translateY(-10px);
+}
+
+/* estilo da imagem do empréstimo */
 .emprestimo-card img {
-    max-width: 100%;
+    width: 100%;
     height: auto;
-    border-radius: 5px;
-    margin-bottom: 15px;
+    border-radius: 10px;
 }
 
-.emprestimo-info {
-    text-align: center;
-}
-
-.emprestimo-info h3 {
+/* título do empréstimo */
+.emprestimo-card h3 {
     font-size: 1.2em;
-    margin-bottom: 10px;
-    color: #333333;
+    margin: 10px 0;
+    color: #333;
+    word-wrap: break-word;
 }
 
-.emprestimo-info p {
-    margin: 5px 0;
-    color: #666666;
+/* detalhes do empréstimo */
+.emprestimo-card p {
+    color: #555;
+    font-size: 0.9em;
+    margin: 0;
+    word-wrap: break-word;
+}
+
+#img-livro {
+    height: 312px;
+    width: 206px;
 }

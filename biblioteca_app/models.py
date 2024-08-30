@@ -25,6 +25,7 @@ class Livro(models.Model):
     titulo = models.CharField(max_length=100, null=False)
     cad_por = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
     estoque = models.IntegerField(validators=[MinValueValidator(0)])
+    capa_url = models.ImageField(upload_to='livros/capas/', blank=True, null=True)
 
     def __str__(self):
         return f"{self.titulo}"
