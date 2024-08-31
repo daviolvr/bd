@@ -7,7 +7,7 @@
     <title>Detalhes do Livro</title>
 </head>
 <body>
-    <aside class="header-container">
+    <header class="header-container">
         <ul class="header-list">
             <li class="bib-nome">Biblioteca X</li>
             <li><a href="{% url 'home' %}" class="inicio">Início</a></li>
@@ -19,13 +19,13 @@
             </li>
             <!-- lembrar de adicionar o botao de meus emprestimos aqui-->
             <li class="img-carrinho">
-                <a href="{% url "carrinho" %}"><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
+                <a href=""><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
             </li>
             <li>
                 <a href="{% url 'logout' %}" class="btnSair">Sair</a>
             </li>
         </ul>
-    </aside>
+    </header>
 
     <div class="livro-detalhes-container">
         <div class="livro-card">
@@ -34,6 +34,7 @@
                 <div class="livro-card-info">
                     <h3>{{ livro.titulo }}</h3>
                     <p><strong>Autor:</strong> {{ livro.autor }}</p>
+                    <p><strong>Gênero:</strong> {{livro.genero }}</p>
                     <p><strong>Estoque:</strong> {{ livro.estoque }}</p>
                     <button class="add-carrinho">Adicionar ao carrinho</button>
                 </div>

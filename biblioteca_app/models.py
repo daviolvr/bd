@@ -20,9 +20,27 @@ class Cliente(models.Model):
         return f"{self.nome}"
 
 class Livro(models.Model):
+    
+    FICCAO = 'Ficção'
+    NAO_FICCAO = 'Não Ficção'
+    BIOGRAFIA = 'Biografia'
+    FANTASIA = 'Fantasia'
+
+    GENERO_CHOICES = [
+        (FICCAO, 'Ficção'),
+        (NAO_FICCAO, 'Não Ficção'),
+        (BIOGRAFIA, 'Biografia'),
+        (FANTASIA, 'Fantasia'),
+    ]
+    
     id_livro = models.AutoField(primary_key=True)
     autor = models.CharField(max_length=120, null=False)
     titulo = models.CharField(max_length=100, null=False)
+    genero = models.CharField(
+        max_length=20,
+        choices=GENERO_CHOICES,
+        default=FICCAO,
+    )
     cad_por = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
     estoque = models.IntegerField(validators=[MinValueValidator(0)])
     capa_url = models.ImageField(upload_to='livros/capas/', blank=True, null=True)

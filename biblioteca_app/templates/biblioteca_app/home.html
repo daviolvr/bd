@@ -7,7 +7,7 @@
     <title>Home</title>
 </head>
 <body>
-    <aside class="header-container">
+    <header class="header-container">
         <ul class="header-list">
             <li class="bib-nome">Biblioteca X</li>
             <li><a href="#" class="inicio">Início</a></li>
@@ -21,13 +21,13 @@
                 <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
             </li>
             <li class="img-carrinho">
-                <a href="{% url "carrinho" %}"><img src="{% static "images/carrinho-35.png" %}" alt="Carrinho"></a>
+                <a href=""><img src="{% static "images/carrinho-35.png" %}" alt="Carrinho"></a>
             </li>            
             <li>
                 <a href="{% url "logout" %}"  class="btnSair">Sair</a>
             </li> 
         </ul>
-    </aside>
+    </header>
 
     <div class="livros-container">
         {% for livro in livros %}
