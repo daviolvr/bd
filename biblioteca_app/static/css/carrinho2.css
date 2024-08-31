@@ -1,0 +1,221 @@
+/* estilo geral do corpo */
+body {
+    margin: 0;
+    padding: 0;
+    height: 100vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    background: linear-gradient(135deg, #6a4caf, #2e7d32);
+    font-family: Arial, sans-serif;
+}
+
+/* estilo do container da header */
+.header-container {
+    width: 100%;
+    position: fixed;
+    top: 0;
+    left: 0;
+    background: #ffffff;
+    z-index: 1000;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+}
+
+/* estilo da lista de itens na header */
+.header-list {
+    display: flex;
+    justify-content: space-between;
+    background-color: rgb(233, 233, 233);
+    align-items: center;
+    padding: 15px 40px;
+    margin: 0;
+    list-style: none;
+    width: 100%;
+    box-sizing: border-box;
+}
+
+/* nome da biblioteca */
+.bib-nome {
+    font-size: 1.8em;
+    font-weight: bold;
+    color: #6a4caf;
+    text-transform: uppercase;
+}
+
+/* estilo geral dos links na header */
+.inicio, .meus-emprestimos, .btnSair {
+    font-size: 1em;
+    font-weight: bold;
+    color: #6a4caf;
+    text-decoration: none;
+    margin: 0 15px;
+    padding: 10px 15px;
+    border-radius: 25px;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* efeito hover para os links */
+.inicio:hover, .meus-emprestimos:hover, .btnSair:hover {
+    background-color: #6a4caf;
+    color: #ffffff;
+}
+
+/* estilo da barra de busca */
+.txtBusca {
+    border: 2px solid #6a4caf;
+    padding: 10px 15px;
+    border-radius: 25px 0 0 25px;
+    width: 250px;
+    font-size: 1em;
+    box-sizing: border-box;
+    margin: 0;
+}
+
+/* foco na barra de busca */
+.txtBusca:focus {
+    border-color: #6a4caf;
+    outline: none;
+}
+
+/* estilo do botão de busca */
+.btnBusca {
+    background-color: #6a4caf;
+    border: 2px solid #6a4caf;
+    border-left: none;
+    padding: 10px 15px;
+    border-radius: 0 25px 25px 0;
+    margin: 0;
+    cursor: pointer;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* imagem dentro do botão de busca */
+.btnBusca img {
+    width: 20px;
+    height: 20px;
+}
+
+/* efeito hover no botão de busca */
+.btnBusca:hover {
+    background-color: #4e3980;
+}
+
+/* container para alinhar o input e o botão de busca */
+.search-container {
+    display: flex;
+    align-items: center;
+    margin-bottom: 0;
+}
+
+/* Container dos Livros */
+.livros-container {
+    display: flex;
+    flex-direction: column; /* Adiciona flex-direction column para o botão de alugar todos ficar acima dos cartões */
+    align-items: center;
+    padding: 20px;
+    margin-top: 80px; /* Ajuste para não sobrepor o header fixo */
+    background-color: #ffffff;
+    border-radius: 10px;
+    width: 80%; /* Ajuste automático */
+    max-width: 1200px; /* Limita a largura máxima */
+    box-sizing: border-box; /* Inclui o padding e borda na largura total */
+}
+
+/* Ajusta o estilo do botão de alugar todos */
+.btnAlugar {
+    background-color: #2e7d32;
+    color: #ffffff;
+    border: none;
+    padding: 15px 30px;
+    border-radius: 25px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    margin-bottom: 20px;
+}
+
+.btnALugar:hover {
+    background-color: #244e26;
+}
+
+/* Estilo para o contêiner dos cartões de livro */
+.livros-grid {
+    display: flex;
+    flex-wrap: wrap; /* Permite que os cartões se movam para a próxima linha quando necessário */
+    gap: 20px; /* Espaçamento entre os cartões */
+    justify-content: center; /* Centraliza os cartões no contêiner */
+}
+
+/* estilo do cartão de livro */
+.livro-card {
+    background-color: #f9f9f9;
+    border: 1px solid #ddd;
+    border-radius: 8px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    margin: 0;
+    padding: 15px;
+    width: 200px; /* Largura fixa */
+    height: 400px; /* Altura fixa */
+    display: flex;
+    flex-direction: column; /* Organiza o conteúdo verticalmente */
+    align-items: center;
+    text-align: center;
+    box-sizing: border-box; /* Inclui padding e borda na largura total */
+    position: relative; /* Necessário para posicionamento absoluto dos botões */
+}
+
+/* Ajusta a imagem do livro */
+.livro-img {
+    width: 100%;
+    height: 200px; /* Ajuste para caber dentro do cartão */
+    object-fit: cover; /* Mantém a proporção da imagem */
+    border-radius: 5px;
+    margin-bottom: 10px;
+}
+
+/* estilo do botão de remover */
+.btnRemover {
+    background-color: #e57373;
+    color: #ffffff;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+    position: absolute;
+    bottom: 15px; /* Espaço da parte inferior do cartão */
+    width: calc(100% - 30px); /* Ajusta a largura do botão */
+    left: 15px; /* Espaço da lateral do cartão */
+    text-align: center;
+    margin-top: 10px;
+}
+
+/* efeito hover para o botão de remover */
+.btnRemover:hover {
+    background-color: #d32f2f;
+}
+
+/* estilo do título dos livros */
+.livro-card h3 {
+    font-size: 1.2em;
+    margin: 10px 0;
+    color: #333;
+}
+
+/* estilo do parágrafo no cartão de livro */
+.livro-card p {
+    font-size: 1em;
+    margin: 0;
+    color: #666;
+}
+
+form {
+    margin-bottom: 0;
+}
+
+h1 {
+    margin: 0 0 10px 0;
+    color: #6a4caf;
+}

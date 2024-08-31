@@ -57,4 +57,13 @@ class Livro_emprestado(models.Model):
     def __str__(self):
         return f"Empréstimo {self.id_emprestimo}"
 
+class Carrinho(models.Model):
+    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('cliente', 'livro')
+
+    def __str__(self):
+        return f"{self.cliente.nome} - {self.livro.titulo}"
 

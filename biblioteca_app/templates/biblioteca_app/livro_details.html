@@ -5,6 +5,15 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/livro_details.css' %}">
     <title>Detalhes do Livro</title>
+    <script>
+        function confirmarAdicao(event, livroTitulo, url) {
+            event.preventDefault(); 
+            var confirmar = confirm(`Você deseja adicionar '${livroTitulo}' ao carrinho?`);
+            if (confirmar) {
+                window.location.href = url;
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="header-container">
@@ -17,9 +26,11 @@
                     <button type="submit" class="btnBusca"><img src="{% static 'images/lupa-30.png' %}" alt="Buscar..."></button>
                 </form>
             </li>
-            <!-- lembrar de adicionar o botao de meus emprestimos aqui-->
+            <li>
+                <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
+            </li>
             <li class="img-carrinho">
-                <a href=""><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
+                <a href="{% url 'carrinho' %}"><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
             </li>
             <li>
                 <a href="{% url 'logout' %}" class="btnSair">Sair</a>
@@ -33,10 +44,12 @@
                 <img src="{{ livro.capa_url.url }}" alt="Capa do Livro" id="img-livro">
                 <div class="livro-card-info">
                     <h3>{{ livro.titulo }}</h3>
-                    <p><strong>Autor:</strong> {{ livro.autor }}</p>
-                    <p><strong>Gênero:</strong> {{livro.genero }}</p>
+                    <p><strong>Autor(a):</strong> {{ livro.autor }}</p>
+                    <p><strong>Gênero:</strong> {{ livro.genero }}</p>
                     <p><strong>Estoque:</strong> {{ livro.estoque }}</p>
-                    <button class="add-carrinho">Adicionar ao carrinho</button>
+                    <button class="add-carrinho" onclick="confirmarAdicao(event, '{{ livro.titulo }}', '{% url 'adicionar-ao-carrinho' livro.pk %}')">
+                        Adicionar ao carrinho
+                    </button>
                 </div>
             </div>
         </div>

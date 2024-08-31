@@ -6,19 +6,13 @@
     <link rel="stylesheet" href="{% static 'css/meus_emprestimos.css' %}">
     <title>Meus Empréstimos</title>
     <script>
-        document.addEventListener("DOMContentLoaded", function() {
-            document.querySelectorAll('.btnDevolver').forEach(button => {
-                button.addEventListener('click', function(event) {
-                    const bookTitle = this.getAttribute('data-title');
-                    if (!confirm(`Deseja devolver o livro '${bookTitle}'?`)) {
-                        event.preventDefault();
-                    } else {
-                        /* Diminuir 1 do estoque do livro */
-                        /* Exibir mensagem de "Devolução realizada" */
-                    }
-                });
-            });
-        });
+        function confirmarDevolucao(event, livroTitulo) {
+            event.preventDefault(); 
+            var confirmar = confirm(`Você deseja devolver o livro '${livroTitulo}'?`);
+            if (confirmar) {
+                event.target.closest('form').submit();
+            }
+        }
     </script>
 </head>
 <body>
@@ -33,7 +27,7 @@
                 </form>
             </li>
             <li class="img-carrinho">
-                <a href=""><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
+                <a href="{% url 'carrinho' %}"><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
             </li>
             <li>
                 <a href="{% url 'logout' %}" class="btnSair">Sair</a>
@@ -50,11 +44,13 @@
                         <img src="{{ emprestimo.id_livro.capa_url.url }}" alt="Capa do Livro" id="img-livro">
                         <div class="emprestimo-info">
                             <h3>{{ emprestimo.id_livro.titulo }}</h3>
-                            <p>Autor: {{ emprestimo.id_livro.autor }}</p>
+                            <p>Autor(a): {{ emprestimo.id_livro.autor }}</p>
                             <p>Data do Empréstimo: {{ emprestimo.data_emprestimo }}</p>
                         </div>
-                        <button class="btnDevolver" data-title="{{ emprestimo.id_livro.titulo }}">Devolver</button>
-                        <!-- inserir um botao tipo "Você tem certeza que quer devolver?"-->
+                        <form action="{% url 'devolver-livro' emprestimo.id_emprestimo %}" method="post" onsubmit="confirmarDevolucao(event, '{{ emprestimo.id_livro.titulo }}')">
+                            {% csrf_token %}
+                            <button type="submit" class="btnDevolver">Devolver</button>
+                        </form>
                     </div>
                 {% endfor %}
             </div>

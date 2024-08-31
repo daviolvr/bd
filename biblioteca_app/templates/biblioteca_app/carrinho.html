@@ -1,1 +1,55 @@
-<h1>Carrinho</h1>
+{% load static %}
+<html lang="pt-br">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="{% static 'css/carrinho2.css' %}">
+    <title>Meu Carrinho</title>
+</head>
+<body>
+    <header class="header-container">
+        <ul class="header-list">
+            <li class="bib-nome">Biblioteca X</li>
+            <li><a href="{% url 'home' %}" class="inicio">Início</a></li>
+            <li>
+                <form action="{% url 'home' %}" method="GET" class="search-container">
+                    <input type="text" name="q" placeholder="Buscar Livros" class="txtBusca">
+                    <button type="submit" class="btnBusca"><img src="{% static 'images/lupa-30.png' %}" alt="Buscar..."></button>
+                </form>
+            </li>
+            <li>
+                <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
+            </li>
+            <li>
+                <a href="{% url 'logout' %}" class="btnSair">Sair</a>
+            </li>
+        </ul>
+    </header>
+
+    <div class="livros-container">
+        <h1>Meu Carrinho</h1>
+        {% if livros_carrinho %}
+        <form action="{% url 'alugar_livros' %}" method="POST">
+            {% csrf_token %}
+            <button type="submit" class="btnAlugar">Alugar Todos</button>
+        </form>
+        {% endif %}
+
+        <div class="livros-grid">
+            {% for item in livros_carrinho %}
+            <div class="livro-card">
+                <img src="{{ item.livro.capa_url.url }}" alt="Capa do Livro" class="livro-img">
+                <h3>{{ item.livro.titulo }}</h3>
+                <p>Autor(a): {{ item.livro.autor }}</p>
+                <form action="{% url 'remover_do_carrinho' item.livro.id_livro %}" method="POST">
+                    {% csrf_token %}
+                    <button type="submit" class="btnRemover">Remover</button>
+                </form>
+            </div>
+            {% empty %}
+            <p>Seu carrinho está vazio.</p>
+            {% endfor %}
+        </div>
+    </div>
+</body>
+</html>

@@ -201,6 +201,7 @@ body {
     height: 280px;
 }
 
+/* botão de devolver */
 .btnDevolver {
     background-color: #6a4caf;
     border: 1px solid #6a4caf;
@@ -210,6 +211,7 @@ body {
     padding: 10px;
 }
 
+/* efeito hover no botão de devolver */
 .btnDevolver:hover {
     color: #ffffff;
     background-color: #4e3980;
