@@ -60,6 +60,7 @@ class Livro_emprestado(models.Model):
 class Carrinho(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
+    data_adicao = models.DateTimeField(auto_now_add=True)
 
     class Meta:
         unique_together = ('cliente', 'livro')

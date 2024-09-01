@@ -80,7 +80,7 @@ WSGI_APPLICATION = 'biblioteca_project.wsgi.application'
 DATABASES = {
     "default": {
         "ENGINE": "django.db.backends.postgresql",
-        "NAME": "bibliotecadb",
+        "NAME": "biblioteca",
         "USER": "postgres",
         "PASSWORD": "bancodedados",
         "HOST": "localhost",

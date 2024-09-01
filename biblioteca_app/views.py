@@ -3,6 +3,7 @@ from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
 from .models import Cliente, Livro, Livro_emprestado, Carrinho
+from django.http import JsonResponse
 
 def cadastro(request):
     if request.method == 'GET':
@@ -85,13 +86,18 @@ def adicionar_ao_carrinho(request, pk):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     livro = get_object_or_404(Livro, pk=pk)
     
-    if Carrinho.objects.filter(cliente=cliente, livro=livro).exists():
-        messages.error(request, 'Você já adicionou este livro ao carrinho.')
-    else:
-        Carrinho.objects.create(cliente=cliente, livro=livro)
-        messages.success(request, 'Livro adicionado ao carrinho com sucesso.')
+    # Verificar se o livro está emprestado pelo cliente
+    if Livro_emprestado.objects.filter(id_cliente=cliente, id_livro=livro).exists():
+        return JsonResponse({'error': f'Você já alugou \'{livro.titulo}\'.'})
     
-    return redirect('livro-details', pk=pk)
+    if livro.estoque <= 0:
+        return JsonResponse({'error': 'Infelizmente, o estoque acabou.'})
+    
+    if Carrinho.objects.filter(cliente=cliente, livro=livro).exists():
+        return JsonResponse({'error': f'\'{livro.titulo}\' já está no carrinho.'})
+    
+    Carrinho.objects.create(cliente=cliente, livro=livro)
+    return JsonResponse({'success': 'Livro adicionado ao carrinho com sucesso.'})
 
 def carrinho(request):
     cliente_id = request.session.get('cliente_id')

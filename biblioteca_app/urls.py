@@ -13,4 +13,5 @@ urlpatterns = [
     path('remover-do-carrinho/<int:pk>/', views.remover_do_carrinho, name='remover_do_carrinho'),  # Nova rota
     path('alugar-livros/', views.alugar_livros, name='alugar_livros'),
     path('devolver-livro/<int:pk>/', views.devolver_livro, name='devolver-livro'),
+    path('', views.buscar_livros, name='home'),
 ]

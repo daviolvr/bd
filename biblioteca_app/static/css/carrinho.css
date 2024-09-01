@@ -113,15 +113,15 @@ body {
 /* Container dos Livros */
 .livros-container {
     display: flex;
-    flex-direction: column; /* Adiciona flex-direction column para o botão de alugar todos ficar acima dos cartões */
+    flex-direction: column; 
     align-items: center;
     padding: 20px;
-    margin-top: 80px; /* Ajuste para não sobrepor o header fixo */
+    margin-top: 80px; 
     background-color: #ffffff;
     border-radius: 10px;
-    width: 80%; /* Ajuste automático */
-    max-width: 1200px; /* Limita a largura máxima */
-    box-sizing: border-box; /* Inclui o padding e borda na largura total */
+    width: 80%; 
+    max-width: 1200px;
+    box-sizing: border-box; 
 }
 
 /* Ajusta o estilo do botão de alugar todos */
@@ -143,9 +143,9 @@ body {
 /* Estilo para o contêiner dos cartões de livro */
 .livros-grid {
     display: flex;
-    flex-wrap: wrap; /* Permite que os cartões se movam para a próxima linha quando necessário */
-    gap: 20px; /* Espaçamento entre os cartões */
-    justify-content: center; /* Centraliza os cartões no contêiner */
+    flex-wrap: wrap;
+    gap: 20px;
+    justify-content: center;
 }
 
 /* estilo do cartão de livro */
@@ -156,21 +156,21 @@ body {
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     margin: 0;
     padding: 15px;
-    width: 200px; /* Largura fixa */
-    height: 400px; /* Altura fixa */
+    width: 200px; 
+    height: 400px;
     display: flex;
-    flex-direction: column; /* Organiza o conteúdo verticalmente */
+    flex-direction: column;
     align-items: center;
     text-align: center;
-    box-sizing: border-box; /* Inclui padding e borda na largura total */
-    position: relative; /* Necessário para posicionamento absoluto dos botões */
+    box-sizing: border-box; 
+    position: relative; 
 }
 
 /* Ajusta a imagem do livro */
 .livro-img {
     width: 100%;
-    height: 200px; /* Ajuste para caber dentro do cartão */
-    object-fit: cover; /* Mantém a proporção da imagem */
+    height: 200px; 
+    object-fit: cover; 
     border-radius: 5px;
     margin-bottom: 10px;
 }
@@ -185,11 +185,10 @@ body {
     cursor: pointer;
     transition: background-color 0.3s;
     position: absolute;
-    bottom: 15px; /* Espaço da parte inferior do cartão */
-    width: calc(100% - 30px); /* Ajusta a largura do botão */
-    left: 15px; /* Espaço da lateral do cartão */
+    bottom: 15px; 
+    width: calc(100% - 30px); 
+    left: 15px; 
     text-align: center;
-    margin-top: 10px;
 }
 
 /* efeito hover para o botão de remover */

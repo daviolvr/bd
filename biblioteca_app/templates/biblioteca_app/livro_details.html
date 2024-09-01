@@ -10,7 +10,17 @@
             event.preventDefault(); 
             var confirmar = confirm(`Você deseja adicionar '${livroTitulo}' ao carrinho?`);
             if (confirmar) {
-                window.location.href = url;
+                fetch(url)
+                    .then(response => response.json())
+                    .then(data => {
+                        if (data.error) {
+                            alert(data.error);
+                        } else if (data.success) {
+                            alert(data.success);
+                            window.location.reload(); // Recarregar a página para atualizar o estado
+                        }
+                    })
+                    .catch(error => console.error('Erro:', error));
             }
         }
     </script>
@@ -18,7 +28,7 @@
 <body>
     <header class="header-container">
         <ul class="header-list">
-            <li class="bib-nome">Biblioteca X</li>
+            <li class="bib-nome">Biblioteca Maranguape</li>
             <li><a href="{% url 'home' %}" class="inicio">Início</a></li>
             <li>
                 <form action="{% url 'home' %}" method="GET" class="search-container">
