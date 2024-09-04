@@ -21,16 +21,37 @@ class Cliente(models.Model):
 
 class Livro(models.Model):
     
-    FICCAO = 'Ficção'
+    FICCAO_CIENTIFICA = 'Ficção Científica'
     NAO_FICCAO = 'Não Ficção'
     BIOGRAFIA = 'Biografia'
     FANTASIA = 'Fantasia'
+    # HORROR = 'Horror'
+    # INFANTIL = 'Infantil'
+    # ACADEMICO = 'Acadêmico'
+    # AUTOAJUDA = 'Autoajuda'
+    # HQ_MANGA = 'HQs e Mangás'
+    # FILOSOFIA = 'Filosofia'
+    # ROMANCE = 'Romance'
+    # ARTE = 'Arte'
+    # TECNOLOGIA = 'Tecnologia'
+    # MISTERIO = 'Mistério'
+    
 
     GENERO_CHOICES = [
-        (FICCAO, 'Ficção'),
+        (FICCAO_CIENTIFICA, 'Ficção Científica'),
         (NAO_FICCAO, 'Não Ficção'),
         (BIOGRAFIA, 'Biografia'),
         (FANTASIA, 'Fantasia'),
+        # (HORROR, 'Horror'),
+        # (INFANTIL, 'Infantil'),
+        # (ACADEMICO, 'Acadêmico'),
+        # (AUTOAJUDA, 'Autoajuda'),
+        # (HQ_MANGA, 'HQs e Mangás'),
+        # (FILOSOFIA, 'Filosofia'),
+        # (ROMANCE, 'Romance'),
+        # (ARTE, 'Arte'),
+        # (TECNOLOGIA, 'Tecnologia'),
+        # (MISTERIO, 'Mistério'),
     ]
     
     id_livro = models.AutoField(primary_key=True)
@@ -39,7 +60,7 @@ class Livro(models.Model):
     genero = models.CharField(
         max_length=20,
         choices=GENERO_CHOICES,
-        default=FICCAO,
+        default=FICCAO_CIENTIFICA,
     )
     cad_por = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
     estoque = models.IntegerField(validators=[MinValueValidator(0)])
@@ -62,8 +83,8 @@ class Carrinho(models.Model):
     livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     data_adicao = models.DateTimeField(auto_now_add=True)
 
-    class Meta:
-        unique_together = ('cliente', 'livro')
+    # class Meta:
+    #     unique_together = ('cliente', 'livro')
 
     def __str__(self):
         return f"{self.cliente.nome} - {self.livro.titulo}"
