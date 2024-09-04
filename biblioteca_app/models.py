@@ -58,7 +58,7 @@ class Livro(models.Model):
     autor = models.CharField(max_length=120, null=False)
     titulo = models.CharField(max_length=100, null=False)
     genero = models.CharField(
-        max_length=20,
+        max_length=40,
         choices=GENERO_CHOICES,
         default=FICCAO_CIENTIFICA,
     )

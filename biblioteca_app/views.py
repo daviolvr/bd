@@ -113,9 +113,6 @@ def carrinho(request):
     }
     return render(request, 'biblioteca_app/carrinho.html', context)
 
-from django.shortcuts import render, redirect, get_object_or_404
-from .models import Carrinho, Livro
-
 def remover_do_carrinho(request, pk):
     cliente_id = request.session.get('cliente_id')
     if not cliente_id:
