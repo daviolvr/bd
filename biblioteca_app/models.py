@@ -1,5 +1,7 @@
 from django.db import models
 from django.core.validators import MinValueValidator
+from datetime import timedelta
+from django.utils import timezone
 
 class Admin(models.Model):
     id_admin = models.AutoField(primary_key=True)
@@ -25,16 +27,16 @@ class Livro(models.Model):
     NAO_FICCAO = 'Não Ficção'
     BIOGRAFIA = 'Biografia'
     FANTASIA = 'Fantasia'
-    # HORROR = 'Horror'
-    # INFANTIL = 'Infantil'
-    # ACADEMICO = 'Acadêmico'
-    # AUTOAJUDA = 'Autoajuda'
-    # HQ_MANGA = 'HQs e Mangás'
-    # FILOSOFIA = 'Filosofia'
-    # ROMANCE = 'Romance'
-    # ARTE = 'Arte'
-    # TECNOLOGIA = 'Tecnologia'
-    # MISTERIO = 'Mistério'
+    HORROR = 'Horror'
+    INFANTIL = 'Infantil'
+    ACADEMICO = 'Acadêmico'
+    AUTOAJUDA = 'Autoajuda'
+    HQ_MANGA = 'HQs e Mangás'
+    FILOSOFIA = 'Filosofia'
+    ROMANCE = 'Romance'
+    ARTE = 'Arte'
+    TECNOLOGIA = 'Tecnologia'
+    MISTERIO = 'Mistério'
     
 
     GENERO_CHOICES = [
@@ -42,16 +44,16 @@ class Livro(models.Model):
         (NAO_FICCAO, 'Não Ficção'),
         (BIOGRAFIA, 'Biografia'),
         (FANTASIA, 'Fantasia'),
-        # (HORROR, 'Horror'),
-        # (INFANTIL, 'Infantil'),
-        # (ACADEMICO, 'Acadêmico'),
-        # (AUTOAJUDA, 'Autoajuda'),
-        # (HQ_MANGA, 'HQs e Mangás'),
-        # (FILOSOFIA, 'Filosofia'),
-        # (ROMANCE, 'Romance'),
-        # (ARTE, 'Arte'),
-        # (TECNOLOGIA, 'Tecnologia'),
-        # (MISTERIO, 'Mistério'),
+        (HORROR, 'Horror'),
+        (INFANTIL, 'Infantil'),
+        (ACADEMICO, 'Acadêmico'),
+        (AUTOAJUDA, 'Autoajuda'),
+        (HQ_MANGA, 'HQs e Mangás'),
+        (FILOSOFIA, 'Filosofia'),
+        (ROMANCE, 'Romance'),
+        (ARTE, 'Arte'),
+        (TECNOLOGIA, 'Tecnologia'),
+        (MISTERIO, 'Mistério'),
     ]
     
     id_livro = models.AutoField(primary_key=True)
@@ -74,6 +76,7 @@ class Livro_emprestado(models.Model):
     id_livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data_emprestimo = models.DateTimeField(auto_now_add=True)
+    # data_devolucao = models.DateTimeField(default=timezone.now() + timedelta(days=30))
 
     def __str__(self):
         return f"Empréstimo {self.id_emprestimo}"
@@ -87,5 +90,5 @@ class Carrinho(models.Model):
     #     unique_together = ('cliente', 'livro')
 
     def __str__(self):
-        return f"{self.cliente.nome} - {self.livro.titulo}"
+        return f"{self.cliente.cpf} - {self.livro.titulo}"
 

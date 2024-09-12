@@ -124,7 +124,7 @@ def remover_do_carrinho(request, pk):
     carrinho_item = Carrinho.objects.filter(cliente=cliente, livro=livro)
     if carrinho_item.exists():
         carrinho_item.delete()
-        messages.success(request, 'Livro removido do carrinho com sucesso.')
+        return JsonResponse({'success': 'Livro removido do carrinho com sucesso.'})
     else:
         messages.error(request, 'Livro não encontrado no carrinho.')
     
