@@ -1,9 +1,10 @@
+<!DOCTYPE html>
 {% load static %}
 <html lang="pt-br">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="{% static "css/home.css" %}">
+    <link rel="stylesheet" href="{% static 'css/home.css' %}">
     <title>Home</title>
 </head>
 <body>
@@ -14,31 +15,50 @@
             <li>
                 <form action="{% url 'home' %}" method="GET" class="search-container">
                     <input type="text" name="q" placeholder="Buscar Livros" class="txtBusca">
-                    <button type="submit" class="btnBusca"><img src="{% static "images/lupa-30.png" %}" alt="Buscar..."></button>
+                    <button type="submit" class="btnBusca"><img src="{% static 'images/lupa-30.png' %}" alt="Buscar..."></button>
                 </form>
             </li>
             <li>
-                <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
+                {% if cliente_id %}
+                    <a href="{% url 'meus-emprestimos' cliente_id %}" class="meus-emprestimos">Meus Empréstimos</a>
+                {% else %}
+                    <a href="#" class="meus-emprestimos">Meus Empréstimos</a>
+                {% endif %}
             </li>
             <li class="img-carrinho">
-                <a href="{% url 'carrinho' %}"><img src="{% static "images/carrinho-35.png" %}" alt="Carrinho"></a>
+                <a href="{% url 'carrinho' %}"><img src="{% static 'images/carrinho-35.png' %}" alt="Carrinho"></a>
             </li>            
             <li>
-                <a href="{% url "logout" %}"  class="btnSair">Sair</a>
+                <a href="{% url 'logout' %}" class="btnSair">Sair</a>
             </li> 
         </ul>
     </header>
 
-    <div class="livros-container">
-        {% for livro in livros %}
-        <a href="{% url 'livro-details' livro.pk %}">
-            <div class="livro-card">
-                    <img src="{{ livro.capa_url.url }}" alt="Capa do Livro" id="img-livro">
-                    <h3>{{ livro.titulo }}</h3>
-                    <p>Autor(a): {{ livro.autor }}</p>
-            </div>
-        </a>
-        {% endfor %}
+    <div class="container">
+        <aside class="filtro-container">
+            <h3>Filtrar por Gênero</h3>
+            <form action="{% url 'home' %}" method="GET">
+                <select name="genero" required>
+                    <option value="">Selecione um Gênero</option>
+                    {% for genero in generos %}
+                        <option value="{{ genero.id }}" {% if request.GET.genero == genero.id|stringformat:"s" %}selected{% endif %}>{{ genero.nome }}</option>
+                    {% endfor %}
+                </select>
+                <button type="submit" class="btnAplicar">Aplicar</button>
+            </form>
+        </aside>
+        
+        <main class="livros-container">
+            {% for livro in livros %}
+                <a href="{% url 'livro-details' livro.pk %}">
+                    <div class="livro-card">
+                        <img src="{{ livro.capa_url.url }}" alt="Capa do Livro" id="img-livro">
+                        <h3>{{ livro.titulo }}</h3>
+                        <p>Autor(a): {{ livro.autor }}</p>
+                    </div>
+                </a>
+            {% endfor %}
+        </main>
     </div>
     
 </body>

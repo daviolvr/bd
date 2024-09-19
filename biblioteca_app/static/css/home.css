@@ -184,3 +184,67 @@ body {
 #img-livro {
     height: 280px;
 }
+
+/* Container principal para a home */
+.container {
+    display: flex;
+    margin-top: 80px;
+    width: 100%;
+}
+
+/* Filtro fixo na lateral esquerda */
+.filtro-container {
+    width: 250px;
+    background-color: #f1f1f1;
+    padding: 15px;
+    position: fixed;
+    left: 0;
+    top: 80px; /* Ajuste conforme necessário */
+    height: calc(100vh - 80px);
+    box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
+}
+
+/* Estilo do select do filtro */
+.filtro-container select {
+    width: 100%;
+    padding: 10px;
+    border: 2px solid #6a4caf;
+    border-radius: 5px;
+    font-size: 1em;
+}
+
+/* Estilo dos livros */
+.livros-container {
+    margin-left: 270px; /* Deixe espaço para o filtro */
+    margin-top: 0;
+    padding: 20px;
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
+    gap: 20px;
+    box-sizing: border-box;
+    width: calc(100% - 270px); /* Ajuste a largura */
+}
+
+/* estilo do botão de aplicar filtro */
+.btnAplicar {
+    background-color: #6a4caf;
+    border: 2px solid #6a4caf;
+    color: #ffffff;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 1em;
+    margin-top: 10px;
+    display: block;
+    width: 100%;
+    text-align: center;
+    text-decoration: none;
+    transition: background-color 0.3s, color 0.3s;
+}
+
+/* efeito hover no botão de aplicar filtro */
+.btnAplicar:hover {
+    background-color: #4e3980;
+    color: #ffffff;
+}
+

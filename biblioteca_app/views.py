@@ -68,15 +68,22 @@ def livro_details(request, pk):
     return render(request, 'biblioteca_app/livro_details.html', {'livro': livro, 'cliente_id': cliente_id})
 
 def buscar_livros(request):
-    query = request.GET.get('q')
-    livros = Livro.objects.all()
+    genero_id = request.GET.get('genero')
+    query = request.GET.get('q', '')
 
+    if genero_id:
+        livros = Livro.objects.filter(genero_id=genero_id)
+    else:
+        livros = Livro.objects.all()
+    
     if query:
         livros = livros.filter(titulo__icontains=query)
 
-    cliente_id = request.session.get('cliente_id')
+    generos = Genero.objects.all()
 
-    return render(request, 'biblioteca_app/home.html', {'livros': livros, 'cliente_id': cliente_id})
+    cliente_id = request.GET.get('cliente_id', None)
+
+    return render(request, 'biblioteca_app/home.html', {'livros': livros, 'generos': generos, 'cliente_id': cliente_id})
 
 def adicionar_ao_carrinho(request, pk):
     cliente_id = request.session.get('cliente_id')
@@ -200,14 +207,16 @@ def devolver_livro(request, pk):
     
     return redirect('meus-emprestimos', pk=cliente_id)
 
-# def filtrar_livros(request):
-#     genero_id = request.GET.get('genero')
+def filtrar_livros(request):
+    genero_id = request.GET.get('genero')
+    if genero_id:
+        livros = Livro.objects.filter(genero_id=genero_id)
+    else:
+        livros = Livro.objects.all()
 
-#     if genero_id:
-#         livros = Livro.objects.filter(genero_id=genero_id)
-#     else:
-#         livros = Livro.objects.all()
+    generos = Genero.objects.all()
+    
+    # Passando cliente_id se disponível no request
+    cliente_id = request.GET.get('cliente_id', None)
 
-#     generos = Genero.objects.all()
-
-#     return render(request, 'home.html', {'livros': livros, 'generos': generos})
+    return render(request, 'biblioteca_app/home.html', {'livros': livros, 'generos': generos, 'cliente_id': cliente_id})

@@ -14,5 +14,5 @@ urlpatterns = [
     path('alugar-livros/', views.alugar_livros, name='alugar_livros'),
     path('devolver-livro/<int:pk>/', views.devolver_livro, name='devolver-livro'),
     path('', views.buscar_livros, name='home'),
-    # path('filtrar_livros/', views.filtrar_livros, name='filtrar_livros'),
+    path('', views.filtrar_livros, name='filtrar-livros'),  # Certifique-se de que a rota principal também use a view de filtragem
 ]
