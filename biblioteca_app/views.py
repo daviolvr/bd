@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
-from .models import Cliente, Livro, Livro_emprestado, Carrinho, Livro_Carrinho
+from .models import Cliente, Livro, Livro_emprestado, Carrinho, Livro_Carrinho, Genero
 from django.http import JsonResponse
 
 def cadastro(request):
@@ -200,3 +200,14 @@ def devolver_livro(request, pk):
     
     return redirect('meus-emprestimos', pk=cliente_id)
 
+# def filtrar_livros(request):
+#     genero_id = request.GET.get('genero')
+
+#     if genero_id:
+#         livros = Livro.objects.filter(genero_id=genero_id)
+#     else:
+#         livros = Livro.objects.all()
+
+#     generos = Genero.objects.all()
+
+#     return render(request, 'home.html', {'livros': livros, 'generos': generos})
