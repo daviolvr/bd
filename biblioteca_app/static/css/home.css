@@ -126,7 +126,7 @@ body {
 
 /* container dos livros */
 .livros-container {
-    margin-top: 80px;
+    margin-top: 0;
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
@@ -199,7 +199,7 @@ body {
     padding: 15px;
     position: fixed;
     left: 0;
-    top: 80px; /* Ajuste conforme necessário */
+    top: 80px; 
     height: calc(100vh - 80px);
     box-shadow: 2px 0 5px rgba(0, 0, 0, 0.1);
 }
@@ -215,14 +215,13 @@ body {
 
 /* Estilo dos livros */
 .livros-container {
-    margin-left: 270px; /* Deixe espaço para o filtro */
-    margin-top: 0;
+    margin-left: 270px; 
     padding: 20px;
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
     gap: 20px;
     box-sizing: border-box;
-    width: calc(100% - 270px); /* Ajuste a largura */
+    width: calc(100% - 270px);
 }
 
 /* estilo do botão de aplicar filtro */

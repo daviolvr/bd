@@ -1,0 +1,16 @@
+Gêneros dos livros:
+
+'Ficção Científica'
+'Não Ficção'
+'Biografia'
+'Fantasia'
+'Horror'
+'Infantil'
+'Acadêmico'
+'Autoajuda'
+'HQs e Mangás'
+'Filosofia'
+'Romance'
+'Arte'
+'Tecnologia'
+'Mistério'
