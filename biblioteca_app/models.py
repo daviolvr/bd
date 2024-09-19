@@ -62,7 +62,6 @@ class Livro(models.Model):
     genero = models.CharField(
         max_length=40,
         choices=GENERO_CHOICES,
-        default=FICCAO_CIENTIFICA,
     )
     cad_por = models.ForeignKey(Admin, on_delete=models.SET_NULL, null=True)
     estoque = models.IntegerField(validators=[MinValueValidator(0)])
@@ -76,19 +75,32 @@ class Livro_emprestado(models.Model):
     id_livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data_emprestimo = models.DateTimeField(auto_now_add=True)
-    # data_devolucao = models.DateTimeField(default=timezone.now() + timedelta(days=30))
+    data_devolucao = models.DateTimeField(default=timezone.now() + timedelta(days=30))
 
     def __str__(self):
         return f"Empréstimo {self.id_emprestimo}"
 
+    def delete(self, *args, **kwargs):
+        livro = self.id_livro
+        livro.estoque += 1
+        livro.save()
+        super().delete(*args, **kwargs)
+
 class Carrinho(models.Model):
     cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
-    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     data_adicao = models.DateTimeField(auto_now_add=True)
 
-    # class Meta:
-    #     unique_together = ('cliente', 'livro')
+    def __str__(self):
+        return f"Carrinho de {self.cliente.cpf}"
+    
+class Livro_Carrinho(models.Model):
+    carrinho = models.ForeignKey(Carrinho, on_delete=models.CASCADE)
+    livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
+
+    class Meta:
+        unique_together = ('carrinho', 'livro') 
 
     def __str__(self):
-        return f"{self.cliente.cpf} - {self.livro.titulo}"
+        return f"{self.carrinho.cliente.cpf} - {self.livro.titulo}"
+
 

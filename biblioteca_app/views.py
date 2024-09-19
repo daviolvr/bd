@@ -2,7 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
-from .models import Cliente, Livro, Livro_emprestado, Carrinho
+from .models import Cliente, Livro, Livro_emprestado, Carrinho, Livro_Carrinho
 from django.http import JsonResponse
 
 def cadastro(request):
@@ -86,18 +86,20 @@ def adicionar_ao_carrinho(request, pk):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     livro = get_object_or_404(Livro, pk=pk)
     
-    # Verificar se o livro está emprestado pelo cliente
     if Livro_emprestado.objects.filter(id_cliente=cliente, id_livro=livro).exists():
         return JsonResponse({'error': f'Você já alugou \'{livro.titulo}\'.'})
+    
+    carrinho, created = Carrinho.objects.get_or_create(cliente=cliente)
+    
+    if Livro_Carrinho.objects.filter(carrinho=carrinho, livro=livro).exists():
+        return JsonResponse({'error': f'\'{livro.titulo}\' já está no carrinho.'})
     
     if livro.estoque <= 0:
         return JsonResponse({'error': 'Infelizmente, o estoque acabou.'})
     
-    if Carrinho.objects.filter(cliente=cliente, livro=livro).exists():
-        return JsonResponse({'error': f'\'{livro.titulo}\' já está no carrinho.'})
-    
-    Carrinho.objects.create(cliente=cliente, livro=livro)
+    Livro_Carrinho.objects.create(carrinho=carrinho, livro=livro)
     return JsonResponse({'success': 'Livro adicionado ao carrinho com sucesso.'})
+
 
 def carrinho(request):
     cliente_id = request.session.get('cliente_id')
@@ -105,13 +107,23 @@ def carrinho(request):
         return redirect('login')
     
     cliente = get_object_or_404(Cliente, pk=cliente_id)
-    livros_carrinho = Carrinho.objects.filter(cliente=cliente)
     
+    try:
+        carrinho = Carrinho.objects.get(cliente=cliente)
+    except Carrinho.DoesNotExist:
+        carrinho = None
+
+    if carrinho:
+        livros_carrinho = Livro_Carrinho.objects.filter(carrinho=carrinho)
+    else:
+        livros_carrinho = []
+
     context = {
         'cliente_id': cliente_id,
         'livros_carrinho': livros_carrinho,
     }
     return render(request, 'biblioteca_app/carrinho.html', context)
+
 
 def remover_do_carrinho(request, pk):
     cliente_id = request.session.get('cliente_id')
@@ -121,14 +133,15 @@ def remover_do_carrinho(request, pk):
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     livro = get_object_or_404(Livro, pk=pk)
     
-    carrinho_item = Carrinho.objects.filter(cliente=cliente, livro=livro)
-    if carrinho_item.exists():
-        carrinho_item.delete()
-        return JsonResponse({'success': 'Livro removido do carrinho com sucesso.'})
-    else:
-        messages.error(request, 'Livro não encontrado no carrinho.')
+    carrinho = get_object_or_404(Carrinho, cliente=cliente)
     
-    return redirect('carrinho')
+    livro_carrinho = Livro_Carrinho.objects.filter(carrinho=carrinho, livro=livro)
+    if livro_carrinho.exists():
+        livro_carrinho.delete()
+        return redirect('carrinho')
+    else:
+        return JsonResponse({'error': 'Livro não encontrado no carrinho.'})
+
 
 def alugar_livros(request):
     cliente_id = request.session.get('cliente_id')
@@ -136,13 +149,23 @@ def alugar_livros(request):
         return redirect('login')
     
     cliente = get_object_or_404(Cliente, pk=cliente_id)
-    carrinho = Carrinho.objects.filter(cliente=cliente)
     
-    if not carrinho.exists():
+    try:
+        carrinho = Carrinho.objects.get(cliente=cliente)
+    except Carrinho.DoesNotExist:
+        carrinho = None
+    
+    if not carrinho:
         messages.error(request, 'Seu carrinho está vazio.')
         return redirect('carrinho')
     
-    for item in carrinho:
+    livros_carrinho = Livro_Carrinho.objects.filter(carrinho=carrinho)
+    
+    if not livros_carrinho.exists():
+        messages.error(request, 'Seu carrinho está vazio.')
+        return redirect('carrinho')
+    
+    for item in livros_carrinho:
         livro = item.livro
         if livro.estoque > 0:
             livro.estoque -= 1
@@ -151,9 +174,10 @@ def alugar_livros(request):
         else:
             messages.error(request, f'O livro "{livro.titulo}" está fora de estoque.')
     
-    carrinho.delete()
+    livros_carrinho.delete()
     messages.success(request, 'Livros alugados com sucesso.')
     return redirect('meus-emprestimos', pk=cliente_id)
+
 
 def devolver_livro(request, pk):
     cliente_id = request.session.get('cliente_id')
@@ -175,7 +199,4 @@ def devolver_livro(request, pk):
     messages.success(request, 'Devolução efetuada.')
     
     return redirect('meus-emprestimos', pk=cliente_id)
-
-
-
 

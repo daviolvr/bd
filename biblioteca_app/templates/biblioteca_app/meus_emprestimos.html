@@ -5,15 +5,6 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/meus_emprestimos.css' %}">
     <title>Meus Empréstimos</title>
-    <script>
-        function confirmarDevolucao(event, livroTitulo) {
-            event.preventDefault(); 
-            var confirmar = confirm(`Você deseja devolver o livro '${livroTitulo}'?`);
-            if (confirmar) {
-                event.target.closest('form').submit();
-            }
-        }
-    </script>
 </head>
 <body>
     <aside class="header-container">
@@ -46,11 +37,8 @@
                             <h3>{{ emprestimo.id_livro.titulo }}</h3>
                             <p>Autor(a): {{ emprestimo.id_livro.autor }}</p>
                             <p>Data do Empréstimo: {{ emprestimo.data_emprestimo }}</p>
+                            <p>Data de Devolução: {{ emprestimo.data_devolucao }}</p>
                         </div>
-                        <form action="{% url 'devolver-livro' emprestimo.id_emprestimo %}" method="post" onsubmit="confirmarDevolucao(event, '{{ emprestimo.id_livro.titulo }}')">
-                            {% csrf_token %}
-                            <button type="submit" class="btnDevolver">Devolver</button>
-                        </form>
                     </div>
                 {% endfor %}
             </div>

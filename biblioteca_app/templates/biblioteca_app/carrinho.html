@@ -5,6 +5,17 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="{% static 'css/carrinho.css' %}">
     <title>Meu Carrinho</title>
+    <script>
+        function confirmarRemocao(livroTitulo, formId) {
+            // Exibe uma confirmação ao usuário
+            const confirmacao = confirm(`Deseja remover "${livroTitulo}" do carrinho?`);
+            
+            // Se o usuário confirmar, o formulário é submetido
+            if (confirmacao) {
+                document.getElementById(formId).submit();
+            }
+        }
+    </script>
 </head>
 <body>
     <header class="header-container">
@@ -41,9 +52,10 @@
                 <img src="{{ item.livro.capa_url.url }}" alt="Capa do Livro" class="livro-img">
                 <h3>{{ item.livro.titulo }}</h3>
                 <p>Autor(a): {{ item.livro.autor }}</p>
-                <form action="{% url 'remover_do_carrinho' item.livro.id_livro %}" method="POST">
+                <!-- Formulário de remoção -->
+                <form id="form-remover-{{ item.livro.id_livro }}" action="{% url 'remover_do_carrinho' item.livro.id_livro %}" method="POST">
                     {% csrf_token %}
-                    <button type="submit" class="btnRemover">Remover</button>
+                    <button type="button" class="btnRemover" onclick="confirmarRemocao('{{ item.livro.titulo }}', 'form-remover-{{ item.livro.id_livro }}')">Remover</button>
                 </form>
             </div>
             {% empty %}
