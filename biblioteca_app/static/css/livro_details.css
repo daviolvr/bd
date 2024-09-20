@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: linear-gradient(135deg, #6a4caf, #2e7d32);
+    background: linear-gradient(135deg, #6a4caf, #ece5b0);
     font-family: Arial, sans-serif;
 }
 
@@ -33,6 +33,7 @@ body {
     list-style: none;
     width: 100%;
     box-sizing: border-box;
+    height: 80px;
 }
 
 /* nome da biblioteca */
@@ -40,7 +41,8 @@ body {
     font-size: 1.8em;
     font-weight: bold;
     color: #6a4caf;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
+    font-family: cursive;
 }
 
 /* estilo geral dos links na header */

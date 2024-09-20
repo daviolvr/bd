@@ -38,7 +38,7 @@ class Livro(models.Model):
     capa_url = models.ImageField(upload_to='livros/capas/', blank=True, null=True)
 
     def __str__(self):
-        return f"{self.titulo}"
+        return f"{self.id_livro} - {self.titulo}"
 
 class Livro_emprestado(models.Model):
     id_emprestimo = models.AutoField(primary_key=True)
