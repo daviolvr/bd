@@ -19,7 +19,7 @@ class Cliente(models.Model):
     senha = models.CharField(max_length=128, null=False, default='')
 
     def __str__(self):
-        return f"{self.nome}"
+        return f"{self.id_cliente} - {self.nome}"
     
 class Genero (models.Model):
     id_genero = models.AutoField(primary_key=True)
@@ -45,10 +45,10 @@ class Livro_emprestado(models.Model):
     id_livro = models.ForeignKey(Livro, on_delete=models.CASCADE)
     id_cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
     data_emprestimo = models.DateTimeField(auto_now_add=True)
-    data_devolucao = models.DateTimeField(default=timezone.now() + timedelta(days=30))
+    data_devolucao = models.DateField(default=timezone.now().date() + timedelta(days=30))
 
     def __str__(self):
-        return f"Empréstimo {self.id_emprestimo}"
+        return f"{self.id_cliente.nome} - {self.id_livro.titulo}"
 
     def delete(self, *args, **kwargs):
         livro = self.id_livro
