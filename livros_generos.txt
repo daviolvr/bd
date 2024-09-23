@@ -1,7 +1,30 @@
-- Arte da Guerra: Filosofia
-- Nunca deixe de tentar: Biografia
+- Arte da Guerra - Filosofia
+- Nunca deixe de tentar -Biografia
 - Initial D - HQs e Mangás
 - HxH - HQs e Mangás
 - Vagabond - HQs e Mangás
 - Bleach - HQs e Mangás
 - Harry Potter - Ficção Científica
+- Frankenstein - Horror
+- O Clube do Crime das Quintas-Feiras - Mistério
+- Mindset - Autoajuda
+- Star Wars - Ficção Científica
+- O Hobbit - Fantasia
+- Tópicos de Física 1 - Acadêmico
+- Introdução à Linguagem SQL - Tecnologia
+- Diário de um Banana - Infantil
+- A Biblioteca da Meia-Noite - Fantasia
+- Fundamentos da Matemática Elementar - Acadêmico
+- Memórias Póstumas de Brás Cubas - Romance
+- O Eternauta - Ficção Científica
+- O Médico e o Monstro - Horror
+- O Natal de Poirot - Mistério
+- O Pequeno Príncipe - Infantil
+- Percy Jackson - Ficção Científica
+- O Príncipe - Filosofia
+- Orgulho e Preconceito - Romance
+- Os Miseráveis - Tragédia
+- Os Três Mosqueteiros - Aventura
+- O Senhor dos Anéis - Fantasia
+- O Contrato Social - Filosofia
+- Imperfeitos - Romance
