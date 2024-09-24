@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.hashers import make_password, check_password
 from .models import Cliente, Livro, Livro_emprestado, Carrinho, Livro_Carrinho, Genero
 from django.http import JsonResponse
 

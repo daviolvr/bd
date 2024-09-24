@@ -2,6 +2,7 @@ from django.db import models
 from django.core.validators import MinValueValidator
 from datetime import timedelta
 from django.utils import timezone
+from django.contrib.auth.hashers import make_password, check_password
 
 class Admin(models.Model):
     id_admin = models.AutoField(primary_key=True)
@@ -17,6 +18,11 @@ class Cliente(models.Model):
     cpf = models.CharField(max_length=11, unique=True, null=False)
     nome = models.CharField(max_length=100, null=False)
     senha = models.CharField(max_length=128, null=False, default='')
+    
+    def save(self, *args, **kwargs):
+        super().save(*args, **kwargs)
+        if not hasattr(self, 'carrinho'):
+            Carrinho.objects.create(cliente=self)
 
     def __str__(self):
         return f"{self.id_cliente} - {self.nome}"
@@ -47,17 +53,23 @@ class Livro_emprestado(models.Model):
     data_emprestimo = models.DateTimeField(auto_now_add=True)
     data_devolucao = models.DateField(default=timezone.now().date() + timedelta(days=30))
 
-    def __str__(self):
-        return f"{self.id_cliente.nome} - {self.id_livro.titulo}"
+    def save(self, *args, **kwargs):
+        livro = self.id_livro
+        livro.estoque -= 1
+        livro.save()
+        super().save(*args, **kwargs)
 
     def delete(self, *args, **kwargs):
         livro = self.id_livro
         livro.estoque += 1
         livro.save()
         super().delete(*args, **kwargs)
+        
+    def __str__(self):
+        return f"{self.id_cliente.nome} - {self.id_livro.titulo}"
 
 class Carrinho(models.Model):
-    cliente = models.ForeignKey(Cliente, on_delete=models.CASCADE)
+    cliente = models.OneToOneField(Cliente, on_delete=models.CASCADE)
     data_adicao = models.DateTimeField(auto_now_add=True)
 
     def __str__(self):
@@ -72,5 +84,3 @@ class Livro_Carrinho(models.Model):
 
     def __str__(self):
         return f"{self.carrinho.cliente.cpf} - {self.livro.titulo}"
-
-
