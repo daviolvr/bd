@@ -192,7 +192,6 @@ def alugar_livros(request):
     
     
     livros_carrinho.delete()
-    messages.success(request, 'Livros alugados com sucesso.')
     return redirect('meus-emprestimos', pk=cliente_id)
 
 def devolver_livro(request, pk):
