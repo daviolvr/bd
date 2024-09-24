@@ -19,13 +19,15 @@ def cadastro(request):
             messages.error(request, 'CPF já cadastrado.')
         except Cliente.DoesNotExist:
             if len(cpf) == 11: 
-                Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
+                cliente = Cliente(nome=nome, cpf=cpf)
+                cliente.senha = senha  # usando o setter para criptografar a senha
+                cliente.save()  # salva o cliente no banco de dados
                 return redirect('login')
             else:
                 messages.error(request, 'CPF deve ter 11 números.')
 
-        return redirect('cadastro') 
-
+        return redirect('cadastro')
+ 
 def login(request):
     if request.method == 'GET':
         return render(request, 'biblioteca_app/login.html')
@@ -34,12 +36,16 @@ def login(request):
         senha = request.POST.get('senha')
         
         try:
-            cliente = Cliente.objects.get(cpf=cpf, senha=senha)
-            request.session['cliente_id'] = cliente.id_cliente
-            return redirect('home')
+            cliente = Cliente.objects.get(cpf=cpf)
+            if cliente.check_password(senha):  
+                request.session['cliente_id'] = cliente.id_cliente
+                return redirect('home')
+            else:
+                messages.error(request, 'CPF ou senha inválidos.')
         except Cliente.DoesNotExist:
             messages.error(request, 'CPF ou senha inválidos.')
-            return redirect('login')
+
+        return redirect('login')
 
 def logout(request):
     auth_logout(request)
@@ -176,7 +182,7 @@ def alugar_livros(request):
     
     for item in livros_carrinho:
         livro = item.livro
-        # Verifica se o livro está fora de estoque
+        
         if livro.estoque > 0:
             livro.estoque -= 1
             livro.save()
@@ -184,7 +190,7 @@ def alugar_livros(request):
         else:
             messages.error(request, f'O livro "{livro.titulo}" está fora de estoque.')
     
-    # Limpa o carrinho após o aluguel
+    
     livros_carrinho.delete()
     messages.success(request, 'Livros alugados com sucesso.')
     return redirect('meus-emprestimos', pk=cliente_id)
