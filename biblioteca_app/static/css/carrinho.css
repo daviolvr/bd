@@ -7,7 +7,7 @@ body {
     flex-direction: column;
     justify-content: flex-start;
     align-items: center;
-    background: linear-gradient(135deg, #6a4caf, #2e7d32);
+    background: linear-gradient(135deg, #6a4caf, #ece5b0);
     font-family: Arial, sans-serif;
 }
 
@@ -33,6 +33,7 @@ body {
     list-style: none;
     width: 100%;
     box-sizing: border-box;
+    height: 80px;
 }
 
 /* nome da biblioteca */
@@ -40,7 +41,8 @@ body {
     font-size: 1.8em;
     font-weight: bold;
     color: #6a4caf;
-    text-transform: uppercase;
+    /* text-transform: uppercase; */
+    font-family: cursive;
 }
 
 /* estilo geral dos links na header */
@@ -53,6 +55,7 @@ body {
     padding: 10px 15px;
     border-radius: 25px;
     transition: background-color 0.3s, color 0.3s;
+
 }
 
 /* efeito hover para os links */
@@ -121,12 +124,13 @@ body {
     border-radius: 10px;
     width: 80%; 
     max-width: 1200px;
-    box-sizing: border-box; 
+    box-sizing: border-box;
+    margin-top: 90px;
 }
 
 /* Ajusta o estilo do botão de alugar todos */
 .btnAlugar {
-    background-color: #2e7d32;
+    background-color: #6a4caf;
     color: #ffffff;
     border: none;
     padding: 15px 30px;
@@ -137,7 +141,7 @@ body {
 }
 
 .btnALugar:hover {
-    background-color: #244e26;
+    background-color: #4e3980;
 }
 
 /* Estilo para o contêiner dos cartões de livro */

@@ -2,6 +2,7 @@ from django.shortcuts import render, redirect
 from django.shortcuts import render, get_object_or_404
 from django.contrib import messages
 from django.contrib.auth import logout as auth_logout
+from django.contrib.auth.hashers import make_password, check_password
 from .models import Cliente, Livro, Livro_emprestado, Carrinho, Livro_Carrinho, Genero
 from django.http import JsonResponse
 
@@ -18,13 +19,15 @@ def cadastro(request):
             messages.error(request, 'CPF já cadastrado.')
         except Cliente.DoesNotExist:
             if len(cpf) == 11: 
-                Cliente.objects.create(nome=nome, cpf=cpf, senha=senha)
-                messages.success(request, 'Cliente cadastrado com sucesso.')
+                cliente = Cliente(nome=nome, cpf=cpf)
+                cliente.senha = senha  # usando o setter para criptografar a senha
+                cliente.save()  # salva o cliente no banco de dados
+                return redirect('login')
             else:
                 messages.error(request, 'CPF deve ter 11 números.')
 
-        return redirect('cadastro') 
-
+        return redirect('cadastro')
+ 
 def login(request):
     if request.method == 'GET':
         return render(request, 'biblioteca_app/login.html')
@@ -33,12 +36,16 @@ def login(request):
         senha = request.POST.get('senha')
         
         try:
-            cliente = Cliente.objects.get(cpf=cpf, senha=senha)
-            request.session['cliente_id'] = cliente.id_cliente
-            return redirect('home')
+            cliente = Cliente.objects.get(cpf=cpf)
+            if cliente.check_password(senha):  
+                request.session['cliente_id'] = cliente.id_cliente
+                return redirect('home')
+            else:
+                messages.error(request, 'CPF ou senha inválidos.')
         except Cliente.DoesNotExist:
             messages.error(request, 'CPF ou senha inválidos.')
-            return redirect('login')
+
+        return redirect('login')
 
 def logout(request):
     auth_logout(request)
@@ -85,12 +92,20 @@ def adicionar_ao_carrinho(request, pk):
     
     cliente = get_object_or_404(Cliente, pk=cliente_id)
     livro = get_object_or_404(Livro, pk=pk)
-    
+
     if Livro_emprestado.objects.filter(id_cliente=cliente, id_livro=livro).exists():
-        return JsonResponse({'error': f'Você já alugou \'{livro.titulo}\'.'})
-    
+        return JsonResponse({'error': f'Você já alugou \'{livro.titulo}\' anteriormente.'})
+
+    livros_alugados_count = Livro_emprestado.objects.filter(id_cliente=cliente).count()
+
     carrinho, created = Carrinho.objects.get_or_create(cliente=cliente)
+    livros_no_carrinho_count = Livro_Carrinho.objects.filter(carrinho=carrinho).count()
+
+    total_livros = livros_alugados_count + livros_no_carrinho_count
     
+    if total_livros >= 3:
+        return JsonResponse({'error': 'Você já atingiu o limite de 3 livros (alugados e no carrinho).'})
+
     if Livro_Carrinho.objects.filter(carrinho=carrinho, livro=livro).exists():
         return JsonResponse({'error': f'\'{livro.titulo}\' já está no carrinho.'})
     
@@ -167,6 +182,7 @@ def alugar_livros(request):
     
     for item in livros_carrinho:
         livro = item.livro
+        
         if livro.estoque > 0:
             livro.estoque -= 1
             livro.save()
@@ -174,10 +190,9 @@ def alugar_livros(request):
         else:
             messages.error(request, f'O livro "{livro.titulo}" está fora de estoque.')
     
+    
     livros_carrinho.delete()
-    messages.success(request, 'Livros alugados com sucesso.')
     return redirect('meus-emprestimos', pk=cliente_id)
-
 
 def devolver_livro(request, pk):
     cliente_id = request.session.get('cliente_id')
